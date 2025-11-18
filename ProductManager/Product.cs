@@ -18,5 +18,8 @@ public class Product
     /// </summary>
     public double SalesPrice { get; set; }
 
-
+    /// <summary>
+    /// The customer facing name of the product.
+    /// </summary>
+    public required string Name { get; set; }
 }

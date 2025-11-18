@@ -6,5 +6,6 @@ namespace ProductManager
         {
             InitializeComponent();
         }
+
     }
 }
