@@ -9,7 +9,7 @@ namespace ProductManager
 
         private void ProductManger_Load(object sender, EventArgs e)
         {
-            MessageBox.Show("Welcome to the Product Manager!");
+            
         }
     }
 }
