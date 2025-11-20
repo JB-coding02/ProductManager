@@ -1,6 +1,6 @@
 ﻿namespace ProductManager
 {
-    partial class Form1
+    partial class ProductManger
     {
         /// <summary>
         ///  Required designer variable.
@@ -30,10 +30,12 @@
         {
             SuspendLayout();
             // 
-            // Form1
+            // ProductManger
             // 
             ClientSize = new Size(546, 347);
-            Name = "Form1";
+            Name = "ProductManger";
+            Text = "Product Manager";
+            ResumeLayout(false);
         }
 
         #endregion
