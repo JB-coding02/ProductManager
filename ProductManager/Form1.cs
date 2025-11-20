@@ -1,11 +1,15 @@
 namespace ProductManager
 {
-    public partial class Form1 : Form
+    public partial class ProductManger : Form
     {
-        public Form1()
+        public ProductManger()
         {
             InitializeComponent();
         }
 
+        private void ProductManger_Load(object sender, EventArgs e)
+        {
+            MessageBox.Show("Welcome to the Product Manager!");
+        }
     }
 }
