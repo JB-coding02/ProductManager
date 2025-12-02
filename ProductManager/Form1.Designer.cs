@@ -1,6 +1,6 @@
 ﻿namespace ProductManager
 {
-    partial class ProductManger
+    partial class ProductManagerForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,11 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
+            lstProducts = new ListBox();
             SuspendLayout();
+            // 
+            // lstProducts
+            // 
+            lstProducts.FormattingEnabled = true;
+            lstProducts.Location = new Point(22, 21);
+            lstProducts.Name = "lstProducts";
+            lstProducts.Size = new Size(238, 124);
+            lstProducts.TabIndex = 0;
             // 
             // ProductManger
             // 
             ClientSize = new Size(546, 347);
+            Controls.Add(lstProducts);
             Name = "ProductManger";
             Text = "Product Manager";
             Load += ProductManger_Load;
@@ -40,5 +50,7 @@
         }
 
         #endregion
+
+        private ListBox lstProducts;
     }
 }
