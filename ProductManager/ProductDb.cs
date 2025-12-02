@@ -25,7 +25,46 @@ public static class ProductDb
     /// <returns></returns>
     public static List<Product> GetAllProducts()
     {
-        throw new NotImplementedException();
+        // Get a database connection
+        SqlConnection con = GetConnection();
+
+        // Open connection
+        con.Open();
+
+        // Prepare SQL command
+        string query = """
+            SELECT Id, SalesPrice, Name 
+            FROM Products 
+            ORDER BY Name ASC
+            """;
+        SqlCommand slctCmnd = new()
+        {
+            Connection = con,
+            CommandText = query
+        };
+
+        // Execute command on the db
+        SqlDataReader reader = slctCmnd.ExecuteReader();
+
+        // Store the results
+        List<Product> allProducts = new();
+        while(reader.Read())
+        {
+            Product p = new()
+            {
+                Name = reader["Name"].ToString(),
+                Id = Convert.ToInt32(reader["Id"]),
+                SalesPrice = Convert.ToDouble(reader["SalesPrice"])
+            };
+
+            //Make sure to add each product to the list so it gets returned.
+            allProducts.Add(p);
+        }
+
+        // Close connection
+        con.Close();
+
+        return allProducts;
     }
 
     public static void AddProduct(Product p)

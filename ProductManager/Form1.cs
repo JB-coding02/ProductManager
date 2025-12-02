@@ -1,15 +1,23 @@
+using ProductManager.Classes;
+
 namespace ProductManager
 {
-    public partial class ProductManger : Form
+    public partial class ProductManagerForm : Form
     {
-        public ProductManger()
+        public ProductManagerForm()
         {
             InitializeComponent();
         }
 
         private void ProductManger_Load(object sender, EventArgs e)
         {
-            
+            List<Product> allProducts = ProductDb.GetAllProducts();
+
+            // Add each product to listbox
+            foreach (Product p in allProducts)
+            {
+                lstProducts.Items.Add(p);
+            }
         }
     }
 }
