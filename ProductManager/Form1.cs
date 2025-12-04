@@ -47,5 +47,19 @@ namespace ProductManager
 
             MessageBox.Show($"Product {selectedProd.Name} deleted.");
         }
+
+        private void BtnAddProd_Click(object sender, EventArgs e)
+        {
+            if (TxtProdName.Text == "" || TxtProdSalesPrice.Text == "")
+            {
+                MessageBox.Show("Please enter BOTH a Sales Price and Name for your product");
+                return;
+            }
+            Product p = new() { Name = TxtProdName.Text, SalesPrice = Convert.ToDouble(TxtProdSalesPrice.Text) };
+            
+            ProductDb.AddProduct(p);
+
+            MessageBox.Show($"Product {p.Name} Added");
+        }
     }
 }
