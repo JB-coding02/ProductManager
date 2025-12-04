@@ -69,7 +69,7 @@ public static class ProductDb
 
     public static void AddProduct(Product p)
     {
-        throw new NotImplementedException();
+        
     }
 
     public static void UpdateProduct(Product p)
