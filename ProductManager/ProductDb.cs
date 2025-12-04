@@ -19,7 +19,7 @@ public static class ProductDb
     }
 
     /// <summary>
-    /// This will return all products from the datatbase
+    /// This will return all products from the database
     /// sorted in ascending order by Name.
     /// </summary>
     /// <returns></returns>
@@ -32,19 +32,20 @@ public static class ProductDb
         con.Open();
 
         // Prepare SQL command
+        // Raw string literal - https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/raw-string
         string query = """
             SELECT Id, SalesPrice, Name 
-            FROM Products 
+            FROM Products
             ORDER BY Name ASC
             """;
-        SqlCommand cmd = new()
+        SqlCommand selectCommand = new()
         {
             Connection = con,
             CommandText = query
         };
 
         // Execute command on the db
-        SqlDataReader reader = cmd.ExecuteReader();
+        SqlDataReader reader = selectCommand.ExecuteReader();
 
         // Store the results
         List<Product> allProducts = new();
@@ -69,37 +70,38 @@ public static class ProductDb
 
     public static void AddProduct(Product p)
     {
-        throw new NotImplementedException();
-        //// Get a database connection
-        //SqlConnection con = GetConnection();
+        // Get a database connection
+        SqlConnection con = GetConnection();
 
-        //// Open connection
-        //con.Open();
+        // Open connection
+        con.Open();
 
-        //// Use parameterized query and return the new identity
-        //string query = """
-        //    INSERT INTO Products (Name, SalesPrice)
-        //    VALUES (@Name, @SalesPrice);
-        //    SELECT CAST(SCOPE_IDENTITY() AS int);
-        //    """;
+        // Use parameterized INSERT and return the new identity
+        string query = """
+            INSERT INTO Products (Name, SalesPrice)
+            VALUES (@Name, @SalesPrice);
+            SELECT SCOPE_IDENTITY();
+            """;
 
-        //SqlCommand cmd = new()
-        //{
-        //    Connection = con,
-        //    CommandText = query
-        //};
+        SqlCommand addCommand = new()
+        {
+            Connection = con,
+            CommandText = query
+        };
 
-        //cmd.Parameters.AddWithValue("@Name", p.Name ?? string.Empty);
-        //cmd.Parameters.AddWithValue("@SalesPrice", p.SalesPrice);
+        // Add parameters to avoid SQL injection
+        addCommand.Parameters.AddWithValue("@Name", p.Name ?? string.Empty);
+        addCommand.Parameters.AddWithValue("@SalesPrice", p.SalesPrice);
 
-        //object result = cmd.ExecuteScalar();
-        //if (result != null && int.TryParse(result.ToString(), out int newId))
-        //{
-        //    p.Id = newId;
-        //}
+        // Execute and capture the new Id (SCOPE_IDENTITY returns numeric/decimal)
+        object result = addCommand.ExecuteScalar();
+        if (result != null && result != DBNull.Value)
+        {
+            p.Id = Convert.ToInt32(result);
+        }
 
-        //// Close connection
-        //con.Close();
+        // Close connection
+        con.Close();
     }
 
     public static void UpdateProduct(Product p)
@@ -109,11 +111,25 @@ public static class ProductDb
 
     public static void DeleteProduct(Product p)
     {
-        throw new NotImplementedException();
+        DeleteProduct(p.Id);
     }
 
     public static void DeleteProduct(int productId)
     {
-        throw new NotImplementedException();
+        SqlConnection con = GetConnection();
+
+        SqlCommand deleteCommand = new()
+        {
+            Connection = con,
+            CommandText = "DELETE FROM Products WHERE Id = @prodId"
+        };
+        // using a parameterized query to prevent SQL Injection attacks
+        deleteCommand.Parameters.AddWithValue("@prodId", productId);
+
+        con.Open();
+
+        int rows = deleteCommand.ExecuteNonQuery();
+
+        con.Close();
     }
 }
