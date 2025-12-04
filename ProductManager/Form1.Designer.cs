@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             lstProducts = new ListBox();
+            btnDeleteProduct = new Button();
             SuspendLayout();
             // 
             // lstProducts
@@ -39,9 +40,20 @@
             lstProducts.Size = new Size(238, 124);
             lstProducts.TabIndex = 0;
             // 
+            // btnDeleteProduct
+            // 
+            btnDeleteProduct.Location = new Point(283, 21);
+            btnDeleteProduct.Name = "btnDeleteProduct";
+            btnDeleteProduct.Size = new Size(164, 69);
+            btnDeleteProduct.TabIndex = 1;
+            btnDeleteProduct.Text = "Delete Selected Product";
+            btnDeleteProduct.UseVisualStyleBackColor = true;
+            btnDeleteProduct.Click += BtnDeleteProduct_Click;
+            // 
             // ProductManagerForm
             // 
             ClientSize = new Size(546, 347);
+            Controls.Add(btnDeleteProduct);
             Controls.Add(lstProducts);
             Name = "ProductManagerForm";
             Text = "Product Manager";
@@ -52,5 +64,6 @@
         #endregion
 
         private ListBox lstProducts;
+        private Button btnDeleteProduct;
     }
 }
