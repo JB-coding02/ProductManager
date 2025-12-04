@@ -39,11 +39,11 @@
             lstProducts.Size = new Size(238, 124);
             lstProducts.TabIndex = 0;
             // 
-            // ProductManger
+            // ProductManagerForm
             // 
             ClientSize = new Size(546, 347);
             Controls.Add(lstProducts);
-            Name = "ProductManger";
+            Name = "ProductManagerForm";
             Text = "Product Manager";
             Load += ProductManger_Load;
             ResumeLayout(false);
