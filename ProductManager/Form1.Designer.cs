@@ -33,6 +33,7 @@
             TxtProdName = new TextBox();
             TxtProdSalesPrice = new TextBox();
             BtnAddProd = new Button();
+            BtnUpdateProduct = new Button();
             SuspendLayout();
             // 
             // lstProducts
@@ -40,7 +41,7 @@
             lstProducts.FormattingEnabled = true;
             lstProducts.Location = new Point(22, 21);
             lstProducts.Name = "lstProducts";
-            lstProducts.Size = new Size(238, 124);
+            lstProducts.Size = new Size(238, 104);
             lstProducts.TabIndex = 0;
             // 
             // BtnDeleteProduct
@@ -55,33 +56,44 @@
             // 
             // TxtProdName
             // 
-            TxtProdName.Location = new Point(22, 151);
+            TxtProdName.Location = new Point(22, 131);
             TxtProdName.Name = "TxtProdName";
             TxtProdName.PlaceholderText = "Enter Product Name.";
-            TxtProdName.Size = new Size(238, 23);
+            TxtProdName.Size = new Size(238, 31);
             TxtProdName.TabIndex = 2;
             // 
             // TxtProdSalesPrice
             // 
-            TxtProdSalesPrice.Location = new Point(22, 180);
+            TxtProdSalesPrice.Location = new Point(22, 168);
             TxtProdSalesPrice.Name = "TxtProdSalesPrice";
             TxtProdSalesPrice.PlaceholderText = "Enter Product Sales Price.";
-            TxtProdSalesPrice.Size = new Size(238, 23);
+            TxtProdSalesPrice.Size = new Size(238, 31);
             TxtProdSalesPrice.TabIndex = 3;
             // 
             // BtnAddProd
             // 
-            BtnAddProd.Location = new Point(22, 209);
+            BtnAddProd.Location = new Point(22, 205);
             BtnAddProd.Name = "BtnAddProd";
-            BtnAddProd.Size = new Size(238, 23);
+            BtnAddProd.Size = new Size(238, 31);
             BtnAddProd.TabIndex = 4;
             BtnAddProd.Text = "Add Product";
             BtnAddProd.UseVisualStyleBackColor = true;
             BtnAddProd.Click += BtnAddProd_Click;
             // 
+            // BtnUpdateProduct
+            // 
+            BtnUpdateProduct.Location = new Point(283, 96);
+            BtnUpdateProduct.Name = "BtnUpdateProduct";
+            BtnUpdateProduct.Size = new Size(164, 48);
+            BtnUpdateProduct.TabIndex = 5;
+            BtnUpdateProduct.Text = "Update Product";
+            BtnUpdateProduct.UseVisualStyleBackColor = true;
+            BtnUpdateProduct.Click += BtnUpdateProduct_Click;
+            // 
             // ProductManagerForm
             // 
             ClientSize = new Size(546, 347);
+            Controls.Add(BtnUpdateProduct);
             Controls.Add(BtnAddProd);
             Controls.Add(TxtProdSalesPrice);
             Controls.Add(TxtProdName);
@@ -101,5 +113,6 @@
         private TextBox TxtProdName;
         private TextBox TxtProdSalesPrice;
         private Button BtnAddProd;
+        private Button BtnUpdateProduct;
     }
 }

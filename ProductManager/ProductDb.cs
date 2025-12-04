@@ -15,7 +15,7 @@ public static class ProductDb
     /// <returns></returns>
     public static SqlConnection GetConnection()
     {
-        return new SqlConnection("Data Source=localhost;Initial Catalog=ProductManagerDb;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False;Command Timeout=30");
+        return new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ProductManagerDb;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False;Command Timeout=30");
     }
 
     /// <summary>
@@ -106,7 +106,22 @@ public static class ProductDb
 
     public static void UpdateProduct(Product p)
     {
-        throw new NotImplementedException();
+        SqlConnection con = GetConnection();
+
+        SqlCommand UpdateCommand = new()
+        {
+            Connection = con,
+            CommandText = "UPDATE FROM Products WHERE Name = @Name"
+        };
+        // using a parameterized query to prevent SQL Injection attacks
+        UpdateCommand.Parameters.AddWithValue("@Name", p.Name);
+        UpdateCommand.Parameters.AddWithValue("@SalesPrice", p.SalesPrice);
+
+        con.Open();
+
+        int rows = UpdateCommand.ExecuteNonQuery();
+
+        con.Close();
     }
 
     public static void DeleteProduct(Product p)
