@@ -11,6 +11,17 @@ namespace ProductManager
 
         private void ProductManger_Load(object sender, EventArgs e)
         {
+            ReloadAllProducts();
+        }
+
+        /// <summary>
+        /// This clears and reloads all the products into
+        /// the listbox
+        /// </summary>
+        private void ReloadAllProducts()
+        {
+            lstProducts.Items.Clear(); // Clear existing items
+
             List<Product> allProducts = ProductDb.GetAllProducts();
 
             // Add each product to listbox
@@ -32,6 +43,7 @@ namespace ProductManager
             Product selectedProd = lstProducts.SelectedItem as Product;
 
             ProductDb.DeleteProduct(selectedProd);
+            ReloadAllProducts(); // Refresh product list
 
             MessageBox.Show($"Product {selectedProd.Name} deleted.");
         }
