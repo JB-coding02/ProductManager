@@ -1,5 +1,4 @@
 using ProductManager.Classes;
-using System.ComponentModel;
 using System.Globalization;
 
 namespace ProductManager
@@ -22,29 +21,27 @@ namespace ProductManager
         /// </summary>
         private void ReloadAllProducts()
         {
-            // Load from DB
+            lstProducts.Items.Clear(); // Clear existing items
+
             List<Product> allProducts = ProductDb.GetAllProducts();
 
-            // Use a BindingList so the grid can bind easily
-            var binding = new BindingList<Product>(allProducts);
-            dgvProducts.DataSource = binding;
+            // Add each product to listbox
+            foreach (Product p in allProducts)
+            {
+                lstProducts.Items.Add(p);
+            }
         }
 
         private void BtnDeleteProduct_Click(object sender, EventArgs e)
         {
             // if no product is selected, tell user and return immediately
-            if (dgvProducts.SelectedRows.Count == 0)
+            if (lstProducts.SelectedIndex < 0)
             {
                 MessageBox.Show("Please select a product to delete.");
                 return;
             }
 
-            Product selectedProd = dgvProducts.SelectedRows[0].DataBoundItem as Product;
-            if (selectedProd == null)
-            {
-                MessageBox.Show("Selected item is not a valid product.");
-                return;
-            }
+            Product selectedProd = lstProducts.SelectedItem as Product;
 
             ProductDb.DeleteProduct(selectedProd);
             ReloadAllProducts(); // Refresh product list
@@ -54,25 +51,15 @@ namespace ProductManager
 
         private void BtnAddProd_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(TxtProdName.Text) || string.IsNullOrWhiteSpace(TxtProdSalesPrice.Text))
+            if (TxtProdName.Text == "" || TxtProdSalesPrice.Text == "")
             {
                 MessageBox.Show("Please enter BOTH a Sales Price and Name for your product");
                 return;
             }
-
-            if (!double.TryParse(TxtProdSalesPrice.Text.Trim(), NumberStyles.Number, CultureInfo.InvariantCulture, out double price))
-            {
-                MessageBox.Show("Please enter a valid numeric sales price.");
-                return;
-            }
-
-            Product p = new() { Name = TxtProdName.Text.Trim(), SalesPrice = price };
+            Product p = new() { Name = TxtProdName.Text, SalesPrice = Convert.ToDouble(TxtProdSalesPrice.Text) };
 
             ProductDb.AddProduct(p);
             ReloadAllProducts();
-
-            TxtProdName.Clear();
-            TxtProdSalesPrice.Clear();
 
             MessageBox.Show($"Product {p.Name} Added");
         }
@@ -80,13 +67,13 @@ namespace ProductManager
         private void BtnUpdateProduct_Click(object sender, EventArgs e)
         {
             // if no product is selected, tell user and return immediately
-            if (dgvProducts.SelectedRows.Count == 0)
+            if (lstProducts.SelectedIndex < 0)
             {
                 MessageBox.Show("Please select a product to update.");
                 return;
             }
 
-            Product selectedProd = dgvProducts.SelectedRows[0].DataBoundItem as Product;
+            Product selectedProd = lstProducts.SelectedItem as Product;
             if (selectedProd == null)
             {
                 MessageBox.Show("Selected item is not a valid product.");
@@ -101,15 +88,16 @@ namespace ProductManager
                 TxtProdSalesPrice.Clear();
 
                 TxtProdName.Text = selectedProd.Name ?? string.Empty;
+                // Use invariant culture for a predictable decimal separator
                 TxtProdSalesPrice.Text = selectedProd.SalesPrice.ToString(CultureInfo.InvariantCulture);
 
-                TxtProductId.Text = selectedProd.Id.ToString();
-
+                // Focus the name box so the user can begin editing immediately
                 TxtProdName.Focus();
                 return;
             }
 
-            // Otherwise treat as save
+            // Otherwise, we treat this click as the "save changes" action.
+            // Validate user input
             string newName = TxtProdName.Text.Trim();
             if (string.IsNullOrEmpty(newName))
             {
@@ -133,7 +121,6 @@ namespace ProductManager
             ReloadAllProducts();
             TxtProdName.Clear();
             TxtProdSalesPrice.Clear();
-            TxtProductId.Clear();
 
             MessageBox.Show($"Product {selectedProd.Name} Updated.");
         }

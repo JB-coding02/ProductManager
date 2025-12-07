@@ -28,21 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
+            lstProducts = new ListBox();
             BtnDeleteProduct = new Button();
             TxtProdName = new TextBox();
             TxtProdSalesPrice = new TextBox();
             BtnAddProd = new Button();
             BtnUpdateProduct = new Button();
-            TxtProductId = new TextBox();
-            dgvProducts = new DataGridView();
-            ((System.ComponentModel.ISupportInitialize)dgvProducts).BeginInit();
             SuspendLayout();
+            // 
+            // lstProducts
+            // 
+            lstProducts.FormattingEnabled = true;
+            lstProducts.Location = new Point(22, 21);
+            lstProducts.Name = "lstProducts";
+            lstProducts.Size = new Size(238, 104);
+            lstProducts.TabIndex = 0;
             // 
             // BtnDeleteProduct
             // 
-            BtnDeleteProduct.Location = new Point(273, 11);
+            BtnDeleteProduct.Location = new Point(283, 21);
             BtnDeleteProduct.Name = "BtnDeleteProduct";
-            BtnDeleteProduct.Size = new Size(164, 58);
+            BtnDeleteProduct.Size = new Size(164, 69);
             BtnDeleteProduct.TabIndex = 1;
             BtnDeleteProduct.Text = "Delete Selected Product";
             BtnDeleteProduct.UseVisualStyleBackColor = true;
@@ -50,7 +56,7 @@
             // 
             // TxtProdName
             // 
-            TxtProdName.Location = new Point(12, 121);
+            TxtProdName.Location = new Point(22, 131);
             TxtProdName.Name = "TxtProdName";
             TxtProdName.PlaceholderText = "Enter Product Name.";
             TxtProdName.Size = new Size(238, 31);
@@ -58,7 +64,7 @@
             // 
             // TxtProdSalesPrice
             // 
-            TxtProdSalesPrice.Location = new Point(12, 158);
+            TxtProdSalesPrice.Location = new Point(22, 168);
             TxtProdSalesPrice.Name = "TxtProdSalesPrice";
             TxtProdSalesPrice.PlaceholderText = "Enter Product Sales Price.";
             TxtProdSalesPrice.Size = new Size(238, 31);
@@ -66,9 +72,9 @@
             // 
             // BtnAddProd
             // 
-            BtnAddProd.Location = new Point(273, 121);
+            BtnAddProd.Location = new Point(22, 205);
             BtnAddProd.Name = "BtnAddProd";
-            BtnAddProd.Size = new Size(164, 31);
+            BtnAddProd.Size = new Size(238, 31);
             BtnAddProd.TabIndex = 4;
             BtnAddProd.Text = "Add Product";
             BtnAddProd.UseVisualStyleBackColor = true;
@@ -76,57 +82,37 @@
             // 
             // BtnUpdateProduct
             // 
-            BtnUpdateProduct.Location = new Point(273, 75);
+            BtnUpdateProduct.Location = new Point(283, 96);
             BtnUpdateProduct.Name = "BtnUpdateProduct";
-            BtnUpdateProduct.Size = new Size(164, 40);
+            BtnUpdateProduct.Size = new Size(164, 48);
             BtnUpdateProduct.TabIndex = 5;
             BtnUpdateProduct.Text = "Update Product";
             BtnUpdateProduct.UseVisualStyleBackColor = true;
             BtnUpdateProduct.Click += BtnUpdateProduct_Click;
             // 
-            // TxtProductId
-            // 
-            TxtProductId.Location = new Point(12, 195);
-            TxtProductId.Name = "TxtProductId";
-            TxtProductId.PlaceholderText = "Product Id.";
-            TxtProductId.ReadOnly = true;
-            TxtProductId.Size = new Size(238, 31);
-            TxtProductId.TabIndex = 6;
-            // 
-            // dgvProducts
-            // 
-            dgvProducts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvProducts.Location = new Point(12, 12);
-            dgvProducts.Name = "dgvProducts";
-            dgvProducts.RowHeadersWidth = 62;
-            dgvProducts.Size = new Size(238, 103);
-            dgvProducts.TabIndex = 7;
-            // 
             // ProductManagerForm
             // 
-            ClientSize = new Size(448, 236);
-            Controls.Add(dgvProducts);
-            Controls.Add(TxtProductId);
+            ClientSize = new Size(546, 347);
             Controls.Add(BtnUpdateProduct);
             Controls.Add(BtnAddProd);
             Controls.Add(TxtProdSalesPrice);
             Controls.Add(TxtProdName);
             Controls.Add(BtnDeleteProduct);
+            Controls.Add(lstProducts);
             Name = "ProductManagerForm";
             Text = "Product Manager";
             Load += ProductManger_Load;
-            ((System.ComponentModel.ISupportInitialize)dgvProducts).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
+
+        private ListBox lstProducts;
         private Button BtnDeleteProduct;
         private TextBox TxtProdName;
         private TextBox TxtProdSalesPrice;
         private Button BtnAddProd;
         private Button BtnUpdateProduct;
-        private TextBox TxtProductId;
-        private DataGridView dgvProducts;
     }
 }
