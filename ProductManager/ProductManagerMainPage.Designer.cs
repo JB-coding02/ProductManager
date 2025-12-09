@@ -1,6 +1,6 @@
 ﻿namespace ProductManager
 {
-    partial class ProductManagerForm
+    partial class BonSucreForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,21 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            lstProducts = new ListBox();
             BtnDeleteProduct = new Button();
             TxtProdName = new TextBox();
             TxtProdSalesPrice = new TextBox();
             BtnAddProd = new Button();
             BtnUpdateProduct = new Button();
+            lstProducts = new ListBox();
             SuspendLayout();
-            // 
-            // lstProducts
-            // 
-            lstProducts.FormattingEnabled = true;
-            lstProducts.Location = new Point(22, 21);
-            lstProducts.Name = "lstProducts";
-            lstProducts.Size = new Size(238, 104);
-            lstProducts.TabIndex = 0;
             // 
             // BtnDeleteProduct
             // 
@@ -90,7 +82,15 @@
             BtnUpdateProduct.UseVisualStyleBackColor = true;
             BtnUpdateProduct.Click += BtnUpdateProduct_Click;
             // 
-            // ProductManagerForm
+            // lstProducts
+            // 
+            lstProducts.FormattingEnabled = true;
+            lstProducts.Location = new Point(22, 21);
+            lstProducts.Name = "lstProducts";
+            lstProducts.Size = new Size(238, 104);
+            lstProducts.TabIndex = 0;
+            // 
+            // BonSucreForm
             // 
             ClientSize = new Size(546, 347);
             Controls.Add(BtnUpdateProduct);
@@ -99,20 +99,19 @@
             Controls.Add(TxtProdName);
             Controls.Add(BtnDeleteProduct);
             Controls.Add(lstProducts);
-            Name = "ProductManagerForm";
-            Text = "Product Manager";
+            Name = "BonSucreForm";
+            Text = "Bon Sucre";
             Load += ProductManger_Load;
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private ListBox lstProducts;
         private Button BtnDeleteProduct;
         private TextBox TxtProdName;
         private TextBox TxtProdSalesPrice;
         private Button BtnAddProd;
         private Button BtnUpdateProduct;
+        private ListBox lstProducts;
     }
 }

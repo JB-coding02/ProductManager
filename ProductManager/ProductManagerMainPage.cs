@@ -3,9 +3,9 @@ using System.Globalization;
 
 namespace ProductManager
 {
-    public partial class ProductManagerForm : Form
+    public partial class BonSucreForm : Form
     {
-        public ProductManagerForm()
+        public BonSucreForm()
         {
             InitializeComponent();
         }
@@ -73,7 +73,7 @@ namespace ProductManager
                 return;
             }
 
-            Product selectedProd = lstProducts.SelectedItem as Product;
+            Product? selectedProd = lstProducts.SelectedItem as Product;
             if (selectedProd == null)
             {
                 MessageBox.Show("Selected item is not a valid product.");
