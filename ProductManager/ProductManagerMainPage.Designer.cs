@@ -34,6 +34,7 @@
             BtnAddProd = new Button();
             BtnUpdateProduct = new Button();
             lstProducts = new ListBox();
+            BtnSelectProduct = new Button();
             SuspendLayout();
             // 
             // BtnDeleteProduct
@@ -90,9 +91,20 @@
             lstProducts.Size = new Size(238, 104);
             lstProducts.TabIndex = 0;
             // 
+            // BtnSelectProduct
+            // 
+            BtnSelectProduct.Location = new Point(283, 150);
+            BtnSelectProduct.Name = "BtnSelectProduct";
+            BtnSelectProduct.Size = new Size(164, 49);
+            BtnSelectProduct.TabIndex = 6;
+            BtnSelectProduct.Text = "Select Product";
+            BtnSelectProduct.UseVisualStyleBackColor = true;
+            BtnSelectProduct.Click += BtnSelectProduct_Click;
+            // 
             // BonSucreForm
             // 
             ClientSize = new Size(546, 347);
+            Controls.Add(BtnSelectProduct);
             Controls.Add(BtnUpdateProduct);
             Controls.Add(BtnAddProd);
             Controls.Add(TxtProdSalesPrice);
@@ -113,5 +125,6 @@
         private Button BtnAddProd;
         private Button BtnUpdateProduct;
         private ListBox lstProducts;
+        private Button BtnSelectProduct;
     }
 }

@@ -1,5 +1,6 @@
 using ProductManager.Classes;
 using System.Globalization;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace ProductManager
 {
@@ -66,6 +67,40 @@ namespace ProductManager
 
         private void BtnUpdateProduct_Click(object sender, EventArgs e)
         {
+            Product? selectedProd = lstProducts.SelectedItem as Product;
+            
+
+            // We treat this click as the "save changes" action.
+            // Validate user input
+            string newName = TxtProdName.Text.Trim();
+            if (string.IsNullOrEmpty(newName))
+            {
+                MessageBox.Show("Product name cannot be empty.");
+                return;
+            }
+
+            if (!double.TryParse(TxtProdSalesPrice.Text.Trim(), NumberStyles.Number, CultureInfo.InvariantCulture, out double newPrice))
+            {
+                MessageBox.Show("Please enter a valid numeric sales price (use '.' as decimal separator).");
+                return;
+            }
+
+            // Apply changes and persist
+            selectedProd?.Name = newName;
+            selectedProd?.SalesPrice = newPrice;
+
+            ProductDb.UpdateProduct(selectedProd!);
+
+            // Refresh UI and clear edit fields
+            ReloadAllProducts();
+            TxtProdName.Clear();
+            TxtProdSalesPrice.Clear();
+
+            MessageBox.Show($"Product {selectedProd?.Name} Updated.");
+        }
+
+        private void BtnSelectProduct_Click(object sender, EventArgs e)
+        {
             // if no product is selected, tell user and return immediately
             if (lstProducts.SelectedIndex < 0)
             {
@@ -95,34 +130,6 @@ namespace ProductManager
                 TxtProdName.Focus();
                 return;
             }
-
-            // Otherwise, we treat this click as the "save changes" action.
-            // Validate user input
-            string newName = TxtProdName.Text.Trim();
-            if (string.IsNullOrEmpty(newName))
-            {
-                MessageBox.Show("Product name cannot be empty.");
-                return;
-            }
-
-            if (!double.TryParse(TxtProdSalesPrice.Text.Trim(), NumberStyles.Number, CultureInfo.InvariantCulture, out double newPrice))
-            {
-                MessageBox.Show("Please enter a valid numeric sales price (use '.' as decimal separator).");
-                return;
-            }
-
-            // Apply changes and persist
-            selectedProd.Name = newName;
-            selectedProd.SalesPrice = newPrice;
-
-            ProductDb.UpdateProduct(selectedProd);
-
-            // Refresh UI and clear edit fields
-            ReloadAllProducts();
-            TxtProdName.Clear();
-            TxtProdSalesPrice.Clear();
-
-            MessageBox.Show($"Product {selectedProd.Name} Updated.");
         }
     }
 }

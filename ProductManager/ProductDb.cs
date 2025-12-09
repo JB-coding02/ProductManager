@@ -114,7 +114,12 @@ public static class ProductDb
         SqlCommand UpdateCommand = new()
         {
             Connection = con,
-            CommandText = "UPDATE FROM Products WHERE Name = @Name"
+            CommandText = """
+            UPDATE Products
+            SET Name = @Name,
+                SalesPrice = @SalesPrice
+            WHERE Name = @Name
+            """
         };
         // using a parameterized query to prevent SQL Injection attacks
         UpdateCommand.Parameters.AddWithValue("@Name", p.Name);
